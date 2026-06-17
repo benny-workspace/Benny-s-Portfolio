@@ -25,7 +25,12 @@ import {
   Youtube,
   Sun,
   Moon,
-  TrendingUp
+  TrendingUp,
+  Phone,
+  Globe,
+  Dumbbell,
+  Rocket,
+  Zap
 } from "lucide-react";
 
 import { NavigationTab, Project, Submission } from "./types";
@@ -274,9 +279,55 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  // Scroll to top of window when active tab changes
+  // Synchronize state with URL path or hash and handle browser back/forward buttons
+  useEffect(() => {
+    const parseUrl = (): NavigationTab => {
+      // 1. Check pathname segments first
+      const pathSegments = window.location.pathname.split("/").filter(Boolean);
+      const lastSegment = pathSegments[pathSegments.length - 1] || "";
+      if (["home", "work", "offers", "contact"].includes(lastSegment)) {
+        return lastSegment as NavigationTab;
+      }
+
+      // 2. Check hash segments next
+      const hash = window.location.hash.replace(/^#\/?/, "");
+      if (["home", "work", "offers", "contact"].includes(hash)) {
+        return hash as NavigationTab;
+      }
+
+      return "home";
+    };
+
+    const handleLocationChange = () => {
+      const tab = parseUrl();
+      setActiveTab(tab);
+    };
+
+    window.addEventListener("popstate", handleLocationChange);
+    window.addEventListener("hashchange", handleLocationChange);
+
+    // Initial parsing on mount
+    const initialTab = parseUrl();
+    setActiveTab(initialTab);
+
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("hashchange", handleLocationChange);
+    };
+  }, []);
+
+  // Scroll to top and update URL history path when active tab changes
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const pathSegments = window.location.pathname.split("/").filter(Boolean);
+    const lastSegment = pathSegments[pathSegments.length - 1] || "";
+    const hash = window.location.hash.replace(/^#\/?/, "");
+
+    if (lastSegment !== activeTab && hash !== activeTab) {
+      // Use clean pathname routing to show elegant URL structure e.g., /home, /work
+      window.history.pushState(null, "", "/" + activeTab);
+    }
   }, [activeTab]);
 
   // Local spam check and rate limiting variables
@@ -711,7 +762,7 @@ export default function App() {
                           <ArrowUpRight className="w-3.5 h-3.5" />
                         </button>
                         <button
-                          onClick={() => handleSelectPackage("Selective Advisory Retainer")}
+                          onClick={() => handleSelectPackage("Online Business Coaching")}
                           className="border border-coal-900/15 hover:border-coal-950 text-coal-700 hover:text-coal-950 text-xs font-semibold px-5 py-2.5 rounded-full transition-colors cursor-pointer"
                         >
                           Queries / Staying Updated
@@ -1009,177 +1060,205 @@ export default function App() {
                   leftLabel="© DRAFT PAC オファー"
                   rightLabel="COMPACT PACKAGES // PRICING SPECS"
                   title="Offers"
-                  description="Transparent rates for selective branding, high-fidelity UI conversions, Digital sales, and neural video creation tasks."
+                  description="Transparent rates for voice-AI receptionist systems, professional web design, bodyweight strength coaching, and online business accelerator mentorship."
                 />
 
                 {/* SERVICE PACKAGES CARDS */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Pack 1 */}
-                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm">
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-start">
-                        <span className="p-2 rounded-lg bg-coal-950/5 text-coal-950">
-                          <Film className="w-5 h-5 animate-pulse" />
-                        </span>
-                        <div className="text-right">
-                          <span className="font-display font-bold text-2xl text-coal-950 block">$4,500</span>
-                          <span className="font-mono text-[9px] text-coal-600 uppercase">Fixed Project rate</span>
-                        </div>
-                      </div>
-                      <h3 className="font-display font-bold text-xl text-coal-950">Cinematic Video Storytelling</h3>
-                      <p className="text-xs text-coal-600 leading-relaxed font-light">
-                        Capturing the meditative or energetic heart of your operations. Ideal for luxury DTC product, architectural spaces, or commercial sake portfolios.
-                      </p>
-                      
-                      <ul className="text-xs text-coal-600 space-y-2 pt-2 border-t border-coal-900/5">
-                        <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Dynamic 2-day on-location cinema-rig filming</span>
-                        </li>
-                        <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Sound layout, vintage grading LUTs design</span>
-                        </li>
-                        <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Includes 3 vertical short-form promotional edits</span>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <button
-                      onClick={() => handleSelectPackage("Cinematic Video Storytelling")}
-                      className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
-                    >
-                      Request Storytelling Pack
-                    </button>
-                  </div>
-
-                  {/* Pack 2: AI FILM Teaser - Recommended */}
+                  {/* Pack 1: AI RECEPTIONIST */}
                   <div className="bg-coal-950 text-bone-50 border border-white/5 hover:border-white/10 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-md relative overflow-hidden">
                     {/* RECOMMENDED PLACARD */}
                     <div className="absolute top-0 right-0 bg-amber-500 text-coal-950 text-[9px] font-mono font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
-                      RECOMMENDED FOR STARTUPS
+                      RECOMMENDED FOR BUSY FOUNDERS & AGENCIES
                     </div>
 
                     <div className="space-y-4">
                       <div className="flex justify-between items-start">
                         <span className="p-2 rounded-lg bg-white/10 text-white">
-                          <Sparkles className="w-5 h-5 text-amber-300" />
+                          <Phone className="w-5 h-5 animate-pulse text-amber-300" />
                         </span>
-                        <div className="text-right">
-                          <span className="font-display font-bold text-2xl text-white block">$2,800</span>
-                          <span className="font-mono text-[9px] text-zinc-400 uppercase">Per Teaser Loop</span>
+                        <div className="text-right flex flex-col items-end">
+                          <div className="flex items-baseline gap-1">
+                            <span className="font-display font-bold text-2xl text-white block">$2,000</span>
+                            <span className="font-mono text-[8px] text-zinc-400 uppercase">SETUP</span>
+                          </div>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="font-display font-bold text-lg text-amber-400 block">$299</span>
+                            <span className="font-mono text-[8px] text-zinc-400 uppercase">/ MO ONGOING</span>
+                          </div>
                         </div>
                       </div>
-                      <h3 className="font-display font-bold text-xl text-white">Neural Film Teaser Loop</h3>
+                      <h3 className="font-display font-bold text-xl text-white">24/7 AI Call Reception & Automated Booking</h3>
                       <p className="text-xs text-zinc-300 leading-relaxed font-light">
-                        Pioneering high-retention generative teaser cycles. Perfect for music production loops, sci-fi drops, cyber aesthetics, or rapid content generation campaigns.
+                        Never let a lead slip through the cracks again. Our voice-AI receptionist answers every call, schedules directly into your calendar, and handles standard volume effortlessly—so you can focus on closing deals, not answering cold calls.
                       </p>
                       
                       <ul className="text-xs text-zinc-400 space-y-2 pt-2 border-t border-white/10">
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-amber-300 rounded-full animate-ping" />
-                          <span>1-minute looping neural interpolated cinematic file</span>
+                          <span className="h-1.5 w-1.5 bg-amber-300 rounded-full shrink-0" />
+                          <span>24/7 live call answering & intelligent routing</span>
                         </li>
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full" />
-                          <span>Custom trained LoRA model reflecting brand palettes</span>
+                          <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full shrink-0" />
+                          <span>Direct calendar booking with smart conflict resolution</span>
                         </li>
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full" />
-                          <span>Royalty-free commercial audio production included</span>
+                          <span className="h-1.5 w-1.5 bg-zinc-500 rounded-full shrink-0" />
+                          <span>Overage billed at cents/min—only pay for what you use</span>
                         </li>
                       </ul>
                     </div>
 
                     <button
-                      onClick={() => handleSelectPackage("Neural Film Teaser Loop")}
+                      onClick={() => handleSelectPackage("AI Receptionist")}
                       className="w-full mt-6 py-2.5 bg-bone-50 text-coal-950 hover:bg-zinc-200 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
                     >
-                      Request Neural Pack
+                      Get AI Receptionist →
                     </button>
                   </div>
 
-                  {/* Pack 3 */}
-                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm">
+                  {/* Pack 2: WEBSITE LAUNCH */}
+                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm relative overflow-hidden">
+                    {/* TAGLINE PLACARD */}
+                    <div className="absolute top-0 right-0 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                      FLEXIBLE PACKAGES FOR DIGITAL PRESENCE
+                    </div>
+
                     <div className="space-y-4">
                       <div className="flex justify-between items-start">
                         <span className="p-2 rounded-lg bg-coal-950/5 text-coal-950">
-                          <Layers className="w-5 h-5" />
+                          <Globe className="w-5 h-5 text-coal-850" />
                         </span>
-                        <div className="text-right">
-                          <span className="font-display font-bold text-2xl text-coal-950 block">$6,000</span>
-                          <span className="font-mono text-[9px] text-coal-600 uppercase">Complete Rebuild</span>
+                        <div className="text-right flex flex-col items-end">
+                          <div className="flex items-baseline gap-1 flex-col items-end">
+                            <span className="font-display font-bold text-lg text-coal-950 block">€499 <span className="font-mono text-[8px] text-coal-600 uppercase">STARTER</span></span>
+                          </div>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="font-display font-bold text-lg text-coal-950 block">€850 <span className="font-mono text-[8px] text-coal-600 uppercase">GROWTH</span></span>
+                          </div>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="font-display font-bold text-lg text-indigo-650 block">€1,000–€1,200 <span className="font-mono text-[8px] text-coal-600 uppercase">/ MO ENTERPRISE</span></span>
+                          </div>
                         </div>
                       </div>
-                      <h3 className="font-display font-bold text-xl text-coal-950">DTC Experience / Interface Overhaul</h3>
+                      <h3 className="font-display font-bold text-xl text-coal-950">Pixel-Perfect Web Design & Development</h3>
                       <p className="text-xs text-coal-600 leading-relaxed font-light">
-                        Complete UX audits, sleek typographer pairings, pixel-level layouts, and blazing-fast hand-coded React + Tailwind frontend development.
+                        From a clean single-page site to a fully managed multi-page ecosystem with blog integration and lead magnets. All builds are mobile-responsive, SEO-tuned, and delivered in under 24 hours for the Starter/Growth tiers.
                       </p>
                       
                       <ul className="text-xs text-coal-600 space-y-2 pt-2 border-t border-coal-900/5">
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>95+ Lighthouse speed optimization blueprint</span>
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Single or multi-page layouts with zero template reuse</span>
                         </li>
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Fully responsive, customized layouts (no UI templates)</span>
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>1 month post-launch support & SSL certification</span>
                         </li>
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Interactive mouse controls & smooth spring motions</span>
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Priority updates and custom lead funnel pages included</span>
                         </li>
                       </ul>
                     </div>
 
                     <button
-                      onClick={() => handleSelectPackage("DTC Experience Overhaul")}
+                      onClick={() => handleSelectPackage("Website Launch")}
                       className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
                     >
-                      Request Interface Rebuild
+                      View Website Plans →
                     </button>
                   </div>
 
-                  {/* Pack 4 */}
-                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm">
+                  {/* Pack 3: CALISTHENICS COACHING */}
+                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm relative overflow-hidden">
+                    {/* TAGLINE PLACARD */}
+                    <div className="absolute top-0 right-0 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                      FOR INTERMEDIATE & BELOW ATHLETES
+                    </div>
+
                     <div className="space-y-4">
                       <div className="flex justify-between items-start">
                         <span className="p-2 rounded-lg bg-coal-950/5 text-coal-950">
-                          <HeartHandshake className="w-5 h-5 pointer-events-none" />
+                          <Dumbbell className="w-5 h-5 text-coal-850" />
                         </span>
                         <div className="text-right">
-                          <span className="font-display font-bold text-2xl text-coal-950 block">$2,000</span>
-                          <span className="font-mono text-[9px] text-coal-600 uppercase">Advisory Retainer</span>
+                          <span className="font-display font-bold text-2xl text-coal-950 block">$1,000</span>
+                          <span className="font-mono text-[9px] text-coal-600 uppercase">PER MONTH</span>
                         </div>
                       </div>
-                      <h3 className="font-display font-bold text-xl text-coal-950">Creative Advisor Retainer</h3>
+                      <h3 className="font-display font-bold text-xl text-coal-950">Bodyweight Strength & Movement Mastery</h3>
                       <p className="text-xs text-coal-600 leading-relaxed font-light">
-                        On-call consulting sessions to review, audit, and curate your visual operations or prompt pipelines. Ideal for established agencies.
+                        Progressive calisthenics coaching designed to take you from fundamental control to advanced static holds and dynamic flows. Each month includes custom programming based on your video form analysis.
                       </p>
                       
                       <ul className="text-xs text-coal-600 space-y-2 pt-2 border-t border-coal-900/5">
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Selective Slack access for prompt & script audits</span>
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Custom progressive workout cycles scaled to your level</span>
                         </li>
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Bi-weekly deep-dive 1-on-1 calls to align benchmarks</span>
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Deep-dive video form correction & mobility prehab</span>
                         </li>
                         <li className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full" />
-                          <span>Direct design priority on active production tracks</span>
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Weekly 1-on-1 check-in calls for accountability</span>
                         </li>
                       </ul>
                     </div>
 
                     <button
-                      onClick={() => handleSelectPackage("Selective Advisory Retainer")}
+                      onClick={() => handleSelectPackage("Calisthenics Coaching")}
                       className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
                     >
-                      Request Retainer Option
+                      Apply for Coaching →
+                    </button>
+                  </div>
+
+                  {/* Pack 4: ONLINE BUSINESS COACHING */}
+                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm relative overflow-hidden">
+                    {/* TAGLINE PLACARD */}
+                    <div className="absolute top-0 right-0 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                      FOR COURSE CREATORS & SCALING ENTREPRENEURS
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-start">
+                        <span className="p-2 rounded-lg bg-coal-950/5 text-coal-950">
+                          <Rocket className="w-5 h-5 text-coal-850" />
+                        </span>
+                        <div className="text-right">
+                          <span className="font-display font-bold text-2xl text-coal-950 block">$2,500</span>
+                          <span className="font-mono text-[9px] text-coal-600 uppercase">PER MONTH</span>
+                        </div>
+                      </div>
+                      <h3 className="font-display font-bold text-xl text-coal-950">The Business Accelerator & Course Blueprint</h3>
+                      <p className="text-xs text-coal-600 leading-relaxed font-light">
+                        High-ticket 1:1 mentorship to architect, launch, and scale your digital knowledge business. We build your funnel, systematize your operations, and map out your path to consistent six-figure months.
+                      </p>
+                      
+                      <ul className="text-xs text-coal-600 space-y-2 pt-2 border-t border-coal-900/5">
+                        <li className="flex items-center gap-1.5">
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Weekly deep-dive 1-on-1 strategy & funnel audits</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Complete course creation blueprint + sales architecture</span>
+                        </li>
+                        <li className="flex items-center gap-1.5">
+                          <span className="h-1.5 w-1.5 bg-coal-950 rounded-full shrink-0" />
+                          <span>Done-for-you systems setup (email, CRM, & offer sequencing)</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <button
+                      onClick={() => handleSelectPackage("Online Business Coaching")}
+                      className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
+                    >
+                      Book Discovery Call →
                     </button>
                   </div>
                 </div>

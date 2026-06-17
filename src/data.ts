@@ -228,65 +228,58 @@ export const FAQS: FAQItem[] = [
 export const OFFERS: ServiceOffer[] = [
   {
     id: "off-1",
-    title: "Cinematic Video Production",
-    price: "$4,500",
-    period: "Per Project",
-    description: "Corporate and brand storytelling videos designed to seize attention, drive emotional response, and scale credibility.",
+    title: "AI Call Receptionist",
+    price: "$2,000 Setup + $299/mo",
+    period: "Ongoing",
+    description: "24/7 AI Call Reception & Automated Booking. Never let a lead slip through the cracks again. Our voice-AI receptionist answers every call, schedules directly into your calendar, and handles standard volume effortlessly.",
     features: [
-      "Full scriptwriting & storyboard formulation",
-      "Dynamic 2-day on-location cinematography",
-      "Pro audio layout & color grading matching brand palettes",
-      "2 revisions with frame-by-frame collaboration",
-      "Optimized vertical social cuts included free"
+      "24/7 live call answering & intelligent routing",
+      "Direct calendar booking with smart conflict resolution",
+      "Overage billed at cents/min—only pay for what you use"
     ],
-    recommended: false,
-    timeline: "2-3 weeks delivery"
+    recommended: true,
+    timeline: "Recommended for busy founders & agencies"
   },
   {
     id: "off-2",
-    title: "AI Film / Gen Teaser Pack",
-    price: "$2,800",
-    period: "Complete Pack",
-    description: "Cutting-edge cinematic trailers and loopable visuals generated using advanced, hyper-customized AI workflows.",
+    title: "Website Launch",
+    price: "From €499",
+    period: "Packages",
+    description: "Pixel-Perfect Web Design & Development. From a clean single-page site to a fully managed multi-page ecosystem with blog integration and lead magnets. All builds are mobile-responsive, SEO-tuned, and delivered in under 24 hours for starter tiers.",
     features: [
-      "Custom LoRA model training on your physical style guideline",
-      "Cinematic script generation with Gemini model tuning",
-      "VFX frame interpolation & seamless loop configuration",
-      "Preloaded commercial music and master audio layout",
-      "Full raw asset delivery for secondary brand marketing"
+      "Single or multi-page layouts with zero template reuse",
+      "1 month post-launch support & SSL certification",
+      "Priority updates and custom lead funnel pages included"
     ],
-    recommended: true,
-    timeline: "1-2 weeks delivery"
+    recommended: false,
+    timeline: "Flexible packages for digital presence"
   },
   {
     id: "off-3",
-    title: "High-Fashion DTC UI Rebuild",
-    price: "$6,000",
-    period: "Per Project",
-    description: "Complete design audit, custom high-contrast interface design, and front-end build utilizing React + Tailwind.",
+    title: "Calisthenics Coaching",
+    price: "$1,000",
+    period: "Per Month",
+    description: "Bodyweight Strength & Movement Mastery. Progressive calisthenics coaching designed to take you from fundamental control to advanced static holds and dynamic flows. Each month includes custom programming based on your video form analysis.",
     features: [
-      "Deep UX attention-flow analysis & structural audit",
-      "Fully customized typography & dark-slate aesthetic layouts",
-      "Fully responsive mobile-to-desktop Tailwind frontend",
-      "Motion-driven smooth transitions & canvas micro-effects",
-      "95+ Lighthouse speed performance score guaranteed"
+      "Custom progressive workout cycles scaled to your level",
+      "Deep-dive video form correction & mobility prehab",
+      "Weekly 1-on-1 check-in calls for accountability"
     ],
     recommended: false,
-    timeline: "3-4 weeks delivery"
+    timeline: "For intermediate & below athletes"
   },
   {
     id: "off-4",
-    title: "Selective Advisory Retainer",
-    price: "$2,000",
+    title: "Online Business Coaching",
+    price: "$2,500",
     period: "Per Month",
-    description: "On-call creative director support to keep your visual marketing, UI design, and generative workflows at peak level.",
+    description: "The Business Accelerator & Course Blueprint. High-ticket 1:1 mentorship to architect, launch, and scale your digital knowledge business. We build your funnel, systematize your operations, and map out your path to consistent six-figure months.",
     features: [
-      "Bi-weekly direct 1-hour strategic alignment video call",
-      "Aesthetic review & critical feedback on your draft visual creatives",
-      "Direct Slack access to review active designs & script drafts",
-      "Priority project booking & discount on active design requests"
+      "Weekly deep-dive 1-on-1 strategy & funnel audits",
+      "Complete course creation blueprint + sales architecture",
+      "Done-for-you systems setup (email, CRM, & offer sequencing)"
     ],
     recommended: false,
-    timeline: "Ongoing booking"
+    timeline: "For course creators & scaling entrepreneurs"
   }
 ];

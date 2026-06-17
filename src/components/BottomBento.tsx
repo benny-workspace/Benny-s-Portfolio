@@ -733,17 +733,17 @@ export default function BottomBento() {
                 <div className="footer-col">
                   <div className="footer-col-title">Backup Link</div>
                   <div className="footer-col-links font-mono text-[11px]">
-                    <a href="#about-section" className="font-sans font-medium">
-                      About Benny
+                    <a href="#home" className="font-sans font-medium">
+                      Home
                     </a>
-                    <a href="#work-section" className="font-sans font-medium">
-                      Interactive Showcase
+                    <a href="#work" className="font-sans font-medium">
+                      Work
                     </a>
-                    <a href="#faq-section" className="font-sans font-medium">
-                      Knowledge Base
+                    <a href="#offers" className="font-sans font-medium">
+                      Offers
                     </a>
-                    <a href={links.email} className="font-mono text-[11px] underline">
-                      bennysworkspace@gmail.com
+                    <a href="#contact" className="font-sans font-medium font-medium">
+                      Contact
                     </a>
                   </div>
                 </div>
