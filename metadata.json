@@ -1,0 +1,6 @@
+{
+  "name": "Benny Portfolio",
+  "description": "Comprehensive premium, high-fidelity portfolio for Benny, a creative director, videographer, and AI filmmaker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
