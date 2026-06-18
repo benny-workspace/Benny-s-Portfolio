@@ -17,6 +17,7 @@ export interface Project {
   role: string;
   tags: string[];
   link?: string;
+  isClosed?: boolean;
   videoUrl?: string; // Optional creative presentation video
   calloutBox?: {
     label: string;

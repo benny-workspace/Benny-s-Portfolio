@@ -90,7 +90,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             <div>
               <div className="flex items-center gap-1.5 font-mono text-[10px] text-coal-600 font-bold uppercase tracking-wider">
                 <Calendar className="w-3.5 h-3.5" />
-                <span>Year</span>
+                <span>Timeline</span>
               </div>
               <span className="font-display font-semibold text-xs sm:text-sm text-coal-950 block mt-1 animate-pulse">
                 {project.year}
@@ -101,12 +101,20 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 <ExternalLink className="w-3.5 h-3.5" />
                 <span>Action</span>
               </div>
-              <a
-                href={project.link || "#"}
-                className="font-display font-bold text-xs sm:text-sm text-coal-950 hover:text-coal-700 underline block mt-1"
-              >
-                Launch Live View
-              </a>
+              {project.isClosed ? (
+                <span className="font-display font-bold text-xs sm:text-sm text-coal-500 block mt-1">
+                  Closed
+                </span>
+              ) : (
+                <a
+                  href={project.link || "#"}
+                  target={project.link && project.link.startsWith("http") ? "_blank" : undefined}
+                  rel={project.link && project.link.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="font-display font-bold text-xs sm:text-sm text-coal-950 hover:text-coal-700 underline block mt-1"
+                >
+                  Launch Live View
+                </a>
+              )}
             </div>
           </div>
 

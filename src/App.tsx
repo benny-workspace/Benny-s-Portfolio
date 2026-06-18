@@ -43,6 +43,7 @@ import BottomBento from "./components/BottomBento";
 import ProjectModal from "./components/ProjectModal";
 import AdminPanel from "./components/AdminPanel";
 import SectionHeader from "./components/SectionHeader";
+import { GlowBorderCard } from "./components/GlowBorderCard";
 
 interface CountUpProps {
   end: number;
@@ -262,6 +263,18 @@ function ScrollRevealParagraph({ children, className = "" }: ScrollRevealParagra
     </p>
   );
 }
+
+const renderRollingButtonText = (text: string) => {
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "16px", overflow: "hidden", boxSizing: "border-box" }}>
+      <p className="rolling-text-inner-offers">
+        {text.split("").map((char, index) => (
+          <span key={index}>{char === " " ? "\u00a0" : char}</span>
+        ))}
+      </p>
+    </div>
+  );
+};
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<NavigationTab>("home");
@@ -721,7 +734,7 @@ export default function App() {
                         <div className="absolute -inset-8 bg-gradient-to-tr from-indigo-500/15 via-purple-500/10 to-pink-500/10 dark:from-indigo-500/10 dark:via-purple-500/5 dark:to-pink-500/5 blur-3xl rounded-full opacity-80 pointer-events-none -z-10 animate-pulse-slow" />
                         
                         <img
-                          src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/1769160829960.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvMTc2OTE2MDgyOTk2MC5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNjkzMjMzLCJleHAiOjE4MTMyMjkyMzN9._86N-EE04yDKIPbpN5p8BtAKQg4vrntjQFZILrEwO5Q"
+                          src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/1769160829960.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvMTc2OTE2MDgyOTk2MC5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzk2MDYyLCJleHAiOjE4MTMzMzIwNjJ9.J3zFNmQ3bZYK0HhXweklVw-W4FDOvkWpMRai06ExgRc"
                           alt="Wholesome client ecosystem and community gathering in a modern brewpub"
                           referrerPolicy="no-referrer"
                           loading="eager"
@@ -1066,9 +1079,9 @@ export default function App() {
                 {/* SERVICE PACKAGES CARDS */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {/* Pack 1: AI RECEPTIONIST */}
-                  <div className="bg-coal-950 text-bone-50 border border-white/5 hover:border-white/10 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-md relative overflow-hidden">
+                  <GlowBorderCard glowColor="orange" theme="dark" className="bg-coal-950 text-bone-50 px-6 pt-14 pb-6 sm:px-8 sm:pt-16 sm:pb-8 flex flex-col justify-between group shadow-md">
                     {/* RECOMMENDED PLACARD */}
-                    <div className="absolute top-0 right-0 bg-amber-500 text-coal-950 text-[9px] font-mono font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-amber-500 text-coal-950 text-[9px] font-mono font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm z-10">
                       RECOMMENDED FOR BUSY FOUNDERS & AGENCIES
                     </div>
 
@@ -1111,16 +1124,16 @@ export default function App() {
 
                     <button
                       onClick={() => handleSelectPackage("AI Receptionist")}
-                      className="w-full mt-6 py-2.5 bg-bone-50 text-coal-950 hover:bg-zinc-200 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
+                      className="roll-btn w-full mt-6 py-3.5 bg-bone-50 hover:bg-zinc-100 text-coal-950 transition-all duration-300 rounded-xl shadow-sm hover:shadow-md active:scale-95 cursor-pointer overflow-hidden border border-white/10"
                     >
-                      Get AI Receptionist →
+                      {renderRollingButtonText("Get AI Receptionist →")}
                     </button>
-                  </div>
+                  </GlowBorderCard>
 
                   {/* Pack 2: WEBSITE LAUNCH */}
-                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm relative overflow-hidden">
+                  <GlowBorderCard glowColor="purple" theme="light" className="bg-bone-100/50 px-6 pt-14 pb-6 sm:px-8 sm:pt-16 sm:pb-8 flex flex-col justify-between group shadow-sm">
                     {/* TAGLINE PLACARD */}
-                    <div className="absolute top-0 right-0 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm z-10">
                       FLEXIBLE PACKAGES FOR DIGITAL PRESENCE
                     </div>
 
@@ -1137,7 +1150,7 @@ export default function App() {
                             <span className="font-display font-bold text-lg text-coal-950 block">€850 <span className="font-mono text-[8px] text-coal-600 uppercase">GROWTH</span></span>
                           </div>
                           <div className="flex items-baseline gap-1 mt-0.5">
-                            <span className="font-display font-bold text-lg text-indigo-650 block">€1,000–€1,200 <span className="font-mono text-[8px] text-coal-600 uppercase">/ MO ENTERPRISE</span></span>
+                            <span className="font-display font-bold text-lg text-indigo-650 block">€1,000–€1,200 <span className="font-mono text-[8px] text-coal-600 uppercase">ENTERPRISE</span></span>
                           </div>
                         </div>
                       </div>
@@ -1164,16 +1177,16 @@ export default function App() {
 
                     <button
                       onClick={() => handleSelectPackage("Website Launch")}
-                      className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
+                      className="roll-btn w-full mt-6 py-3.5 bg-coal-950 hover:bg-coal-800 text-bone-50 transition-all duration-300 rounded-xl shadow-sm hover:shadow-md active:scale-95 cursor-pointer overflow-hidden border border-coal-950/10"
                     >
-                      View Website Plans →
+                      {renderRollingButtonText("View Website Plans →")}
                     </button>
-                  </div>
+                  </GlowBorderCard>
 
                   {/* Pack 3: CALISTHENICS COACHING */}
-                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm relative overflow-hidden">
+                  <GlowBorderCard glowColor="green" theme="light" className="bg-bone-100/50 px-6 pt-14 pb-6 sm:px-8 sm:pt-16 sm:pb-8 flex flex-col justify-between group shadow-sm">
                     {/* TAGLINE PLACARD */}
-                    <div className="absolute top-0 right-0 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm z-10">
                       FOR INTERMEDIATE & BELOW ATHLETES
                     </div>
 
@@ -1210,16 +1223,16 @@ export default function App() {
 
                     <button
                       onClick={() => handleSelectPackage("Calisthenics Coaching")}
-                      className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
+                      className="roll-btn w-full mt-6 py-3.5 bg-coal-950 hover:bg-coal-800 text-bone-50 transition-all duration-300 rounded-xl shadow-sm hover:shadow-md active:scale-95 cursor-pointer overflow-hidden border border-coal-950/10"
                     >
-                      Apply for Coaching →
+                      {renderRollingButtonText("Apply for Coaching →")}
                     </button>
-                  </div>
+                  </GlowBorderCard>
 
                   {/* Pack 4: ONLINE BUSINESS COACHING */}
-                  <div className="bg-bone-100/50 border border-coal-900/5 hover:border-coal-900/15 p-6 sm:p-8 rounded-3xl flex flex-col justify-between transition-all group shadow-sm relative overflow-hidden">
+                  <GlowBorderCard glowColor="blue" theme="light" className="bg-bone-100/50 px-6 pt-14 pb-6 sm:px-8 sm:pt-16 sm:pb-8 flex flex-col justify-between group shadow-sm">
                     {/* TAGLINE PLACARD */}
-                    <div className="absolute top-0 right-0 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-bl-xl uppercase tracking-wider">
+                    <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-coal-200 text-coal-800 text-[9px] font-mono font-semibold px-3 py-1 rounded-full uppercase tracking-wider shadow-sm z-10">
                       FOR COURSE CREATORS & SCALING ENTREPRENEURS
                     </div>
 
@@ -1256,11 +1269,11 @@ export default function App() {
 
                     <button
                       onClick={() => handleSelectPackage("Online Business Coaching")}
-                      className="w-full mt-6 py-2.5 bg-coal-950 text-bone-50 hover:bg-coal-800 transition-colors text-xs font-semibold rounded-xl cursor-pointer"
+                      className="roll-btn w-full mt-6 py-3.5 bg-coal-950 hover:bg-coal-800 text-bone-50 transition-all duration-300 rounded-xl shadow-sm hover:shadow-md active:scale-95 cursor-pointer overflow-hidden border border-coal-950/10"
                     >
-                      Book Discovery Call →
+                      {renderRollingButtonText("Book Discovery Call →")}
                     </button>
-                  </div>
+                  </GlowBorderCard>
                 </div>
               </section>
 
@@ -1286,7 +1299,7 @@ export default function App() {
                 {/* Two Columns Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-stretch mb-16 mt-6">
                   {/* Left Column: Portrait Photo with Rounded Corners (Slightly Shrunk, More Rectangular/Less Tall) */}
-                  <div className="w-full relative group max-w-[80%] md:max-w-[75%] mx-auto md:mx-0 flex flex-col justify-center">
+                  <div className="w-full relative group max-w-[95%] sm:max-w-[90%] md:max-w-[75%] mx-auto md:mx-0 flex flex-col justify-center">
                     <div className="overflow-hidden rounded-[2rem] aspect-[16/10] bg-bone-100/30 shadow-md transition-all duration-500 hover:scale-[1.01] hover:shadow-lg">
                       <img
                         src={new URL("./assets/images/benny_suit.jpg", import.meta.url).href}
@@ -1338,12 +1351,14 @@ export default function App() {
 
                     {/* Row 3 - Phone/WhatsApp */}
                     <a
-                      href="tel:+11494578297"
+                      href="https://wa.me/351912859130"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="group relative py-5 flex flex-col w-full text-text-primary transition-colors duration-300 cursor-pointer"
                     >
                       <div className="flex items-center justify-between text-sm sm:text-base">
                         <span className="font-semibold tracking-tight transition-colors duration-300 group-hover:text-text-secondary">
-                          +1 34566 4565
+                          WhatsApp - +351 912 859 130
                         </span>
                         <ArrowUpRight className="w-4 h-4 text-text-secondary transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-text-primary shrink-0" />
                       </div>
@@ -1381,45 +1396,47 @@ export default function App() {
                 <div className="w-full relative px-6 py-20 sm:py-28 md:py-36 max-w-4xl mx-auto mb-10 overflow-visible group/bio">
                   {/* Three Background Images Collage (Tactile Watermark Style, Exact Behind Text) */}
                   
-                  {/* Image 1: Top-Left (Pinterest Embed Replacement) */}
-                  <div className="absolute top-2 left-2 sm:top-8 sm:left-12 md:left-20 w-[150px] h-[264px] sm:w-[200px] sm:h-[352px] md:w-[236px] md:h-[415px] rotate-[-6deg] pointer-events-auto z-0 hover:scale-105 hover:rotate-[-3deg] transition-all duration-500">
-                    <iframe 
-                      src="https://assets.pinterest.com/ext/embed.html?id=907053181199340801" 
-                      height="100%" 
-                      width="100%" 
-                      frameBorder="0" 
-                      scrolling="no" 
-                      className="w-full h-full"
-                      title="Pinterest Embed"
-                    />
-                  </div>
-
-                  {/* Image 2: Bottom-Left (Before/After client website transformation) */}
-                  <div className="absolute bottom-2 left-6 sm:bottom-8 sm:left-16 md:left-24 w-40 h-56 sm:w-60 sm:h-80 md:w-72 md:h-[24rem] rounded-2xl overflow-hidden shadow-2xl border border-border-custom bg-surface-custom rotate-[6deg] pointer-events-auto select-none z-0 hover:scale-105 hover:rotate-[3deg] transition-all duration-500 cursor-zoom-in opacity-100">
+                  {/* Image 1: Top-Left (Shoyu Ramen Image) */}
+                  <div className="absolute top-2 left-2 sm:top-8 sm:left-12 md:left-20 w-40 sm:w-60 md:w-72 h-auto rounded-2xl overflow-hidden shadow-2xl border border-border-custom bg-surface-custom rotate-[-6deg] pointer-events-auto select-none z-0 hover:scale-105 hover:rotate-[-3deg] transition-all duration-500 cursor-zoom-in opacity-100">
                     {/* Texture grain layer */}
                     <div className="grain-effect rounded-2xl" />
                     <img 
-                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/before&afterwebclienttestimonials.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvYmVmb3JlJmFmdGVyd2ViY2xpZW50dGVzdGltb25pYWxzLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE2OTUxNTUsImV4cCI6MTgxMzIzMTI1NX0.MRHt0NSff5Voy1P71ZPgw03VSYy3kjJhQzelDBkZJCo"
-                      alt="After client website transformation showcase" 
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Shoyu%20Ramen.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2hveXUgUmFtZW4uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NTg2NywiZXhwIjoxODEzMzMxODY3fQ.WOc3lfa_xEFsCHRYu1hC7bf4AgZKxP-qptnQXexvwdE"
+                      alt="Warm bowl of authentic Shoyu Ramen reflecting raw design texture and culinary artistry" 
                       loading="eager"
                       fetchPriority="high"
                       decoding="sync"
-                      className="w-full h-full object-cover saturate-130 contrast-110 brightness-105"
+                      className="w-full h-auto object-contain saturate-130 contrast-110 brightness-105"
                       referrerPolicy="no-referrer"
                     />
                   </div>
 
-                  {/* Image 3: Centered In-Between them vertically, right-centered (Before Client website transformation) */}
-                  <div className="absolute top-[35%] right-2 sm:top-[38%] sm:right-6 md:right-10 w-40 h-56 sm:w-60 sm:h-80 md:w-72 md:h-[24rem] rounded-2xl overflow-hidden shadow-2xl border border-border-custom bg-surface-custom rotate-[4deg] pointer-events-auto select-none z-0 hover:scale-105 hover:rotate-[1deg] transition-all duration-500 cursor-zoom-in opacity-100">
+                  {/* Image 2: Bottom-Left (Japanese Dragon Stone Carving) */}
+                  <div className="absolute bottom-2 left-6 sm:bottom-8 sm:left-16 md:left-24 w-40 sm:w-60 md:w-72 h-auto rounded-2xl overflow-hidden shadow-2xl border border-border-custom bg-surface-custom rotate-[6deg] pointer-events-auto select-none z-0 hover:scale-105 hover:rotate-[3deg] transition-all duration-500 cursor-zoom-in opacity-100">
                     {/* Texture grain layer */}
                     <div className="grain-effect rounded-2xl" />
                     <img 
-                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Before.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvQmVmb3JlLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE2OTQ2NTIsImV4cCI6MTgxMzIzMDY1Mn0.Esc1gV-ewc8bzKAyVxcROV-06A4JGFH1wqmjse-ZD3s"
-                      alt="Before client website transformation showcase" 
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Dragon%20Stone%20Carving.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgRHJhZ29uIFN0b25lIENhcnZpbmcuanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDY5MCwiZXhwIjoxODEzMzMwNjkwfQ.-UcpQhXho-64IYV2cvsYYNdUBbQogf6m0kz_Nwiankw"
+                      alt="Japanese Dragon Stone Carving reflecting raw design texture and dimension" 
                       loading="eager"
                       fetchPriority="high"
                       decoding="sync"
-                      className="w-full h-full object-cover saturate-130 contrast-110 brightness-105"
+                      className="w-full h-auto object-contain saturate-130 contrast-110 brightness-105"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+
+                  {/* Image 3: Centered In-Between them vertically, right-centered (Japanese Neighborhood) */}
+                  <div className="absolute top-[35%] right-2 sm:top-[38%] sm:right-6 md:right-10 w-40 sm:w-60 md:w-72 h-auto rounded-2xl overflow-hidden shadow-2xl border border-border-custom bg-surface-custom rotate-[4deg] pointer-events-auto select-none z-0 hover:scale-105 hover:rotate-[1deg] transition-all duration-500 cursor-zoom-in opacity-100">
+                    {/* Texture grain layer */}
+                    <div className="grain-effect rounded-2xl" />
+                    <img 
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Neighborhood%20_.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgTmVpZ2hib3Job29kIF8uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDYxNiwiZXhwIjoxODEzMzMwNjE2fQ.-zr_xnK69HDXz0rMEp582kVDdMq9VYIbqSoOzKNR164"
+                      alt="Japanese Neighborhood scenery reflecting raw design texture and dimension" 
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="sync"
+                      className="w-full h-auto object-contain saturate-130 contrast-110 brightness-105"
                       referrerPolicy="no-referrer"
                     />
                   </div>

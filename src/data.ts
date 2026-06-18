@@ -9,15 +9,15 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-1",
     title: "DigiDental - AI Receptionist System",
-    client: "DigiDental (Founder)",
+    client: "Dental Clinic Practices (US)",
     category: "AI Systems & Business Development",
-    year: "2026",
+    year: "2026 & Ongoing",
     description: "A 24/7 AI receptionist built for US dental clinics. Handles calls, books appointments, and sounds completely human, without hiring a single extra staff member.",
     longDescription: "DigiDental was built from scratch to solve one specific, expensive problem: dental clinics losing patients to missed calls after hours and during overflow. Denty, the AI receptionist at the core of DigiDental, answers every call, books appointments directly into the clinic calendar, and delivers a human-grade interaction every time. Setup takes one day. The system is fully operational and in active outreach to US dental practices.",
     image: "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/digi_dental_linkedin_2.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvZGlnaV9kZW50YWxfbGlua2VkaW5fMi5wbmciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNjk0MTA5LCJleHAiOjE4MTMyMzAxMDl9.5Q5I0le3izVOnnrlbnx6YTpDQXsC3KL5DQqL1YlsWWU",
     role: "Founder & Systems Architect",
     tags: ["AI Development", "B2B Outreach", "System Design"],
-    link: "#",
+    link: "https://web.facebook.com/meetdigidenty",
     calloutBox: {
       label: "BUSINESS MODEL & PRICING",
       content: "Setup fee covers full system build and personalization to the practice. Monthly retainer keeps Denty live, updated, and running 24/7. First client pricing available."
@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
     image: "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/before&afterwebclienttestimonials.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvYmVmb3JlJmFmdGVyd2ViY2xpZW50dGVzdGltb25pYWxzLnBuZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE2OTY0ODgsImV4cCI6MTgxMzIzMjQ4OH0.sBfh-pjLSfQZw002VELYOrZfCHIlIxD5eLrz8tYTCvo",
     role: "Web Designer, Frontend Developer & Content Producer",
     tags: ["Web Design", "Vercel Deploy", "Video Production"],
-    link: "#",
+    link: "https://www.linkedin.com/in/ceobenny/",
     calloutBox: {
       label: "LIVE & VERIFIED",
       content: "All websites remain active and are indexed on Google Maps under their respective business profiles. NGO video credit is publicly visible on their official Facebook page."
@@ -53,7 +53,7 @@ export const PROJECTS: Project[] = [
     image: "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/FBgrowth.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvRkJncm93dGgucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTY5NjU1NCwiZXhwIjoxODEzMjMyNTU0fQ.He5bRJuIRtGFwIEROaaMCG6ve5_wK1U7FXszZtPACBM",
     role: "Strategist, Creator & Editor",
     tags: ["Organic Growth", "Facebook Strategy", "Viral Content"],
-    link: "#",
+    link: "https://web.facebook.com/profile.php?id=61590700253409",
     calloutBox: {
       label: "GROWTH METRICS",
       content: "2,000+ followers acquired in 10 days. Select videos approaching 100,000 views organically. Zero paid promotion. Active daily posting cadence maintained throughout."
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
     image: "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/screenshot%20(41).jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvc2NyZWVuc2hvdCAoNDEpLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE2OTU1MjMsImV4cCI6MTgxMzIzMTUyM30.gD0NJFkc6T_vE7DDZCSOqCD17b3jEcyPzrPAHorQ0hU",
     role: "Founder, Creator, Editor & Strategist",
     tags: ["Personal Branding", "Content Creation", "Calisthenics"],
-    link: "#",
+    link: "https://www.youtube.com/@bennyunmatched",
     calloutBox: {
       label: "OUTPUT & REACH",
       content: "Daily posting maintained across multiple platforms simultaneously. Two Shorts crossed 100,000 views organically. Content produced in English, Portuguese, and Sinhalese."
@@ -90,6 +90,7 @@ export const PROJECTS: Project[] = [
     role: "Founder, Product Curator & Marketing Lead",
     tags: ["E-Commerce", "DTC Strategy", "US Market Targeting"],
     link: "#",
+    isClosed: true,
     calloutBox: {
       label: "VERIFIED DATA",
       content: "450+ website sessions recorded. Primary traffic source: United States. Bank statement and session screenshot documentation retained. Store launched and operated independently from Portugal."
