@@ -587,7 +587,7 @@ export default function App() {
                 {/* Background Video (z-index: 0) */}
                 <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
                   <video
-                    src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Videos%20(Under%2030s)/download.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWaWRlb3MgKFVuZGVyIDMwcykvZG93bmxvYWQubXA0Iiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTI4NDMxNCwiZXhwIjoxODEyODIwMzE0fQ.ITFexWxsSlGignsBdmLCIrprdgHoqOkWS-BrVHbwl98"
+                    src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/public/Videos%20(Under%2030s)/download.mp4"
                     autoPlay
                     loop
                     muted
@@ -734,7 +734,7 @@ export default function App() {
                         <div className="absolute -inset-8 bg-gradient-to-tr from-indigo-500/15 via-purple-500/10 to-pink-500/10 dark:from-indigo-500/10 dark:via-purple-500/5 dark:to-pink-500/5 blur-3xl rounded-full opacity-80 pointer-events-none -z-10 animate-pulse-slow" />
                         
                         <img
-                          src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/1769160829960.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvMTc2OTE2MDgyOTk2MC5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzk2MDYyLCJleHAiOjE4MTMzMzIwNjJ9.J3zFNmQ3bZYK0HhXweklVw-W4FDOvkWpMRai06ExgRc"
+                          src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/public/Images/1769160829960.jpg"
                           alt="Wholesome client ecosystem and community gathering in a modern brewpub"
                           referrerPolicy="no-referrer"
                           loading="eager"
@@ -917,7 +917,7 @@ export default function App() {
                     <div className="absolute -inset-4 bg-gradient-to-tr from-amber-500/15 via-orange-500/10 to-indigo-500/10 dark:from-amber-500/10 dark:via-orange-500/5 dark:to-indigo-500/5 blur-2xl rounded-full opacity-80 pointer-events-none z-0 animate-pulse-slow" />
                     
                     <img
-                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/digi_dental_batch2_1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvZGlnaV9kZW50YWxfYmF0Y2gyXzEucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTY5MzUwNCwiZXhwIjoxODEzMjI5NTA0fQ.RLDxhWwWAgF8Erna4kQYOpEfQNPEbkw11nagyCOTJSA"
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/public/Images/digi_dental_batch2_1.png"
                       alt="DigiDental AI receptionist dashboard preview for US dental clinics"
                       referrerPolicy="no-referrer"
                       loading="lazy"
@@ -1403,7 +1403,7 @@ export default function App() {
                     {/* Texture grain layer */}
                     <div className="grain-effect rounded-2xl" />
                     <img 
-                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Shoyu%20Ramen.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2hveXUgUmFtZW4uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NTg2NywiZXhwIjoxODEzMzMxODY3fQ.WOc3lfa_xEFsCHRYu1hC7bf4AgZKxP-qptnQXexvwdE"
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/public/Images/Shoyu%20Ramen.jpg"
                       alt="Warm bowl of authentic Shoyu Ramen reflecting raw design texture and culinary artistry" 
                       loading="lazy"
                       fetchPriority="auto"
@@ -1418,7 +1418,7 @@ export default function App() {
                     {/* Texture grain layer */}
                     <div className="grain-effect rounded-2xl" />
                     <img 
-                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Dragon%20Stone%20Carving.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgRHJhZ29uIFN0b25lIENhcnZpbmcuanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDY5MCwiZXhwIjoxODEzMzMwNjkwfQ.-UcpQhXho-64IYV2cvsYYNdUBbQogf6m0kz_Nwiankw"
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/public/Images/Japanese%20Dragon%20Stone%20Carving.jpg"
                       alt="Japanese Dragon Stone Carving reflecting raw design texture and dimension" 
                       loading="lazy"
                       fetchPriority="auto"
@@ -1433,7 +1433,7 @@ export default function App() {
                     {/* Texture grain layer */}
                     <div className="grain-effect rounded-2xl" />
                     <img 
-                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Neighborhood%20_.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgTmVpZ2hib3Job29kIF8uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDYxNiwiZXhwIjoxODEzMzMwNjE2fQ.-zr_xnK69HDXz0rMEp582kVDdMq9VYIbqSoOzKNR164"
+                      src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/public/Images/Japanese%20Neighborhood%20_.jpg"
                       alt="Japanese Neighborhood scenery reflecting raw design texture and dimension" 
                       loading="lazy"
                       fetchPriority="auto"
