@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## Post-merge — 2026-06-25 (branch `main`)
+- Merged the optimization pass into `main`; deleted the `claude/modest-carson-rwk6d7`
+  feature branch (local + remote). `main` is now the only branch.
+- Bucket made public by Benny ✅ — punch-list item #1 done.
+- Added `supabase/migrations/20260625171149_storage_privacy_policies.sql`:
+  storage RLS so the `Images` / `Videos (Under 30s)` buckets stay public-read
+  but only authenticated users can write/update/delete media. Apply via the
+  Dashboard SQL Editor or `supabase db push` (see `supabase/README.md`).
+  ⚠️ Could not be tested live — the sandbox can't reach `*.supabase.co`; verify
+  in the Supabase Dashboard.
+
 ## Optimization pass — 2026-06-25 (branch `claude/modest-carson-rwk6d7`)
 
 > Branch note: the task brief asked for `optimize/seo-perf-security`, but this
