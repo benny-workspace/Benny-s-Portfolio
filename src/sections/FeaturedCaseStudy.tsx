@@ -53,7 +53,7 @@ export default function FeaturedCaseStudy() {
             </h3>
 
             <p className="text-[#525252] text-sm leading-relaxed font-light">
-              The autonomous build that saves dental practices their lost hours and $ coverage. Artifical Inteligence used at it's peak to gather Inbound clients and automatically book clinic clients to their calendars for practice owners to focus only on their dentistry.
+              The autonomous build that saves dental practices their lost hours and $ coverage. Artificial Intelligence used at its peak to gather Inbound clients and automatically book clinic clients to their calendars for practice owners to focus only on their dentistry.
             </p>
           </div>
 

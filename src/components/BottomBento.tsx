@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Send } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { Link } from "react-router-dom";
 
 export default function BottomBento() {
   const [email, setEmail] = useState("");
@@ -733,18 +734,18 @@ export default function BottomBento() {
                 <div className="footer-col">
                   <div className="footer-col-title">Backup Link</div>
                   <div className="footer-col-links font-mono text-[11px]">
-                    <a href="#home" className="font-sans font-medium">
+                    <Link to="/" className="font-sans font-medium">
                       Home
-                    </a>
-                    <a href="#work" className="font-sans font-medium">
+                    </Link>
+                    <Link to="/work" className="font-sans font-medium">
                       Work
-                    </a>
-                    <a href="#offers" className="font-sans font-medium">
+                    </Link>
+                    <Link to="/offers" className="font-sans font-medium">
                       Offers
-                    </a>
-                    <a href="#contact" className="font-sans font-medium font-medium">
+                    </Link>
+                    <Link to="/contact" className="font-sans font-medium">
                       Contact
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

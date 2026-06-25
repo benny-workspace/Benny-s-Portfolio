@@ -173,7 +173,7 @@ export default function ContactDetails() {
           </ScrollRevealParagraph>
 
           <ScrollRevealParagraph className="text-text-primary/95 font-sans text-sm sm:text-base md:text-lg leading-relaxed">
-            I speak three languages, run an AI company targeting the US market, post content every single day, and move at a speed that confuses the people closest to me and Inspires those watching from the outside.
+            I speak three languages, run an AI company targeting the US market, post content every single day, and move at a speed that confuses the people closest to me and inspires those watching from the outside.
           </ScrollRevealParagraph>
 
           <ScrollRevealParagraph className="text-text-primary/95 font-sans text-sm sm:text-base md:text-lg font-semibold tracking-tight italic">
