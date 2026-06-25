@@ -717,7 +717,7 @@ export default function App() {
               </div>
 
               {/* PERSONA NARRATIVE SECTION */}
-              <section className="py-20 bg-bone-100/30 px-4 sm:px-8">
+              <section className="py-20 bg-bone-100/30 px-4 sm:px-8" id="persona-section">
                 <div className="max-w-7xl mx-auto">
                   <SectionHeader
                     leftLabel="© PERSONA ペルソナ"
@@ -787,7 +787,7 @@ export default function App() {
               </section>
 
               {/* PRACTICE GRID SECTION */}
-              <section className="py-20 px-4 sm:px-8 max-w-7xl mx-auto">
+              <section className="py-20 px-4 sm:px-8 max-w-7xl mx-auto" id="practice-section">
                 <SectionHeader
                   leftLabel="© CAPABILITIES ケイパ"
                   rightLabel="CAPABILITIES"
@@ -845,7 +845,7 @@ export default function App() {
               <Testimonials />
 
               {/* AWARDS DUMMY LIST */}
-              <section className="py-20 px-4 sm:px-8 bg-bone-100/20">
+              <section className="py-20 px-4 sm:px-8 bg-bone-100/20" id="awards-section">
                 <div className="max-w-4xl mx-auto">
                   <SectionHeader
                     leftLabel="© AWARDS アワード"
@@ -871,7 +871,7 @@ export default function App() {
               </section>
 
               {/* PRICING UPDATING PLACEHOLDER */}
-              <section className="py-20 px-4 sm:px-8 bg-bone-50">
+              <section className="py-20 px-4 sm:px-8 bg-bone-50" id="pricing-section">
                 <div className="max-w-4xl mx-auto">
                   <SectionHeader
                     leftLabel="© METRIC MATRICES プライス"
@@ -918,11 +918,11 @@ export default function App() {
                     
                     <img
                       src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/digi_dental_batch2_1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvZGlnaV9kZW50YWxfYmF0Y2gyXzEucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTY5MzUwNCwiZXhwIjoxODEzMjI5NTA0fQ.RLDxhWwWAgF8Erna4kQYOpEfQNPEbkw11nagyCOTJSA"
-                      alt="Digi Dental app showcase interface"
+                      alt="DigiDental AI receptionist dashboard preview for US dental clinics"
                       referrerPolicy="no-referrer"
-                      loading="eager"
-                      fetchPriority="high"
-                      decoding="sync"
+                      loading="lazy"
+                      fetchPriority="auto"
+                      decoding="async"
                       className="w-full h-full object-cover rounded-2xl filter contrast-105 group-hover:scale-[1.01] transition-transform duration-500 shadow-xl relative z-10 font-sans"
                     />
                   </div>
@@ -981,7 +981,7 @@ export default function App() {
               className="space-y-0"
             >
               {/* HEADING PORTFOLIO */}
-              <section className="py-16 sm:py-20 px-4 sm:px-8 max-w-7xl mx-auto">
+              <section className="py-16 sm:py-20 px-4 sm:px-8 max-w-7xl mx-auto" id="work-section">
                 <SectionHeader
                   leftLabel="© CURATED SELECTION ワークス"
                   rightLabel="PORTFOLIO SHOWCASE"
@@ -1006,8 +1006,10 @@ export default function App() {
                         <div className="w-full h-full overflow-hidden rounded-2xl relative z-10 shadow-lg border border-border-custom bg-surface-custom">
                           <img
                             src={proj.image}
-                            alt={proj.title}
+                            alt={`${proj.title} — ${proj.category}`}
                             referrerPolicy="no-referrer"
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 filter contrast-102 brightness-95"
                           />
                         </div>
@@ -1068,7 +1070,7 @@ export default function App() {
               className="space-y-0"
             >
               {/* OFFERS BANNER */}
-              <section className="py-16 sm:py-20 px-4 sm:px-8 max-w-7xl mx-auto">
+              <section className="py-16 sm:py-20 px-4 sm:px-8 max-w-7xl mx-auto" id="offers-section">
                 <SectionHeader
                   leftLabel="© DRAFT PAC オファー"
                   rightLabel="COMPACT PACKAGES // PRICING SPECS"
@@ -1295,7 +1297,7 @@ export default function App() {
               className="space-y-0"
             >
               {/* CONTACT NOW CONTAINER */}
-              <section className="py-12 sm:py-20 px-4 sm:px-8 max-w-7xl mx-auto">
+              <section className="py-12 sm:py-20 px-4 sm:px-8 max-w-7xl mx-auto" id="contact-section">
                 {/* Two Columns Layout */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-16 items-stretch mb-16 mt-6">
                   {/* Left Column: Portrait Photo with Rounded Corners (Slightly Shrunk, More Rectangular/Less Tall) */}
@@ -1403,9 +1405,9 @@ export default function App() {
                     <img 
                       src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Shoyu%20Ramen.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2hveXUgUmFtZW4uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NTg2NywiZXhwIjoxODEzMzMxODY3fQ.WOc3lfa_xEFsCHRYu1hC7bf4AgZKxP-qptnQXexvwdE"
                       alt="Warm bowl of authentic Shoyu Ramen reflecting raw design texture and culinary artistry" 
-                      loading="eager"
-                      fetchPriority="high"
-                      decoding="sync"
+                      loading="lazy"
+                      fetchPriority="auto"
+                      decoding="async"
                       className="w-full h-auto object-contain saturate-130 contrast-110 brightness-105"
                       referrerPolicy="no-referrer"
                     />
@@ -1418,9 +1420,9 @@ export default function App() {
                     <img 
                       src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Dragon%20Stone%20Carving.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgRHJhZ29uIFN0b25lIENhcnZpbmcuanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDY5MCwiZXhwIjoxODEzMzMwNjkwfQ.-UcpQhXho-64IYV2cvsYYNdUBbQogf6m0kz_Nwiankw"
                       alt="Japanese Dragon Stone Carving reflecting raw design texture and dimension" 
-                      loading="eager"
-                      fetchPriority="high"
-                      decoding="sync"
+                      loading="lazy"
+                      fetchPriority="auto"
+                      decoding="async"
                       className="w-full h-auto object-contain saturate-130 contrast-110 brightness-105"
                       referrerPolicy="no-referrer"
                     />
@@ -1433,9 +1435,9 @@ export default function App() {
                     <img 
                       src="https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Neighborhood%20_.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgTmVpZ2hib3Job29kIF8uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDYxNiwiZXhwIjoxODEzMzMwNjE2fQ.-zr_xnK69HDXz0rMEp582kVDdMq9VYIbqSoOzKNR164"
                       alt="Japanese Neighborhood scenery reflecting raw design texture and dimension" 
-                      loading="eager"
-                      fetchPriority="high"
-                      decoding="sync"
+                      loading="lazy"
+                      fetchPriority="auto"
+                      decoding="async"
                       className="w-full h-auto object-contain saturate-130 contrast-110 brightness-105"
                       referrerPolicy="no-referrer"
                     />
@@ -1519,7 +1521,7 @@ export default function App() {
                 {/* Centered YouTube Link (Framer interactive style) */}
                 <div className="max-w-xl mx-auto pt-4 pb-12">
                   <a
-                    href="https://www.youtube.com"
+                    href="https://www.youtube.com/@bennyunmatched"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative py-6 flex items-center justify-between text-text-primary transition-colors duration-300 w-full cursor-pointer"
