@@ -1,20 +1,32 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Benny's Portfolio
 
-# Run and deploy your AI Studio app
+Personal branded portfolio for **Benny** — creative director, AI systems builder
+(DigiDental / Denty AI receptionist for dental clinics), web & content producer,
+and calisthenics athlete.
 
-This contains everything you need to run your app locally.
+**Stack:** Vite 6 · React 19 · TypeScript · Tailwind CSS v4 · `motion` (Framer Motion) · `lucide-react`.
+Single-page, client-rendered (no SSR/SSG).
 
-View your app in AI Studio: https://ai.studio/apps/b4d5401d-e235-4570-89c0-97d3da63e857
+## Run locally
 
-## Run Locally
+**Prerequisites:** Node.js 18+
 
-**Prerequisites:**  Node.js
+```bash
+npm install
+npm run dev      # Vite dev server on http://localhost:3000
+npm run build    # production build to dist/
+npm run preview  # preview the production build
+npm run lint     # tsc --noEmit type check
+```
 
+## Configuration
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Copy `.env.example` → `.env.local` and set `APP_URL` to the production domain
+(used for canonical/OG tags and `sitemap.xml`).
+
+## Project map
+
+See [`SITE_MAP.md`](./SITE_MAP.md) for the full view/section/asset inventory and
+[`CHANGELOG.md`](./CHANGELOG.md) for the optimization history and the deferred
+punch-list.
+</content>
