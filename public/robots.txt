@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-# Update the host below to the real production domain (see APP_URL in .env).
-Sitemap: https://ceobenny.com/sitemap.xml

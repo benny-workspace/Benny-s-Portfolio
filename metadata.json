@@ -2,6 +2,6 @@
   "name": "Benny Portfolio",
   "description": "Comprehensive premium, high-fidelity portfolio for Benny, a creative director, videographer, and AI filmmaker.",
   "requestFramePermissions": [],
-  "favicon": "public/benny-icon.png",
-  "majorCapabilities": []
+  "favicon": "src/assets/images/Benny Icon.png",
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

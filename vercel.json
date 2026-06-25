@@ -1,6 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    { "source": "/((?!og-image\\.jpg|robots\\.txt|sitemap\\.xml|favicon-32x32\\.png|apple-touch-icon\\.png|benny-icon\\.png|assets/).*)", "destination": "/index.html" }
-  ]
-}
