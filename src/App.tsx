@@ -292,6 +292,22 @@ export default function App() {
     }
   }, [isDarkMode]);
 
+  // Preload key images to guarantee instantaneous rendering and zero layout shifts
+  useEffect(() => {
+    const imageUrls = [
+      "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/1769160829960.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvMTc2OTE2MDgyOTk2MC5qcGciLCJzY29wZSI6ImRvd25sb2FkIiwiaWF0IjoxNzgxNzk2MDYyLCJleHAiOjE4MTMzMzIwNjJ9.J3zFNmQ3bZYK0HhXweklVw-W4FDOvkWpMRai06ExgRc",
+      "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/digi_dental_batch2_1.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvZGlnaV9kZW50YWxfYmF0Y2gyXzEucG5nIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTY5MzUwNCwiZXhwIjoxODEzMjI5NTA0fQ.RLDxhWwWAgF8Erna4kQYOpEfQNPEbkw11nagyCOTJSA",
+      "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Shoyu%20Ramen.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvU2hveXUgUmUtbWVuLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODE3OTU4NjcsImV4cCI6MTgxMzMzMTg2N30.WOc3lfa_xEFsCHRYu1hC7bf4AgZKxP-qptnQXexvwdE",
+      "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Dragon%20Stone%20Carving.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgRHJhZ29uIFN0b25lIENhcnZpbmcuanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTk0NjkwLCJleHAiOjE4MTMzMzA2OTB9.-UcpQhXho-64IYV2cvsYYNdUBbQogf6m0kz_Nwiankw",
+      "https://mdotuapbbscuxdnbudri.supabase.co/storage/v1/object/sign/Images/Japanese%20Neighborhood%20_.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV85NjhkZWMyNC1kZGI4LTQzYTQtYWNmYy0yOGVhZmZmNDc5YmUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvSmFwYW5lc2UgTmVpZ2hib3Job29kIF8uanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4MTc5NDYxNiwiZXhwIjoxODEzMzMwNjE2fQ.-zr_xnK69HDXz0rMEp582kVDdMq9VYIbqSoOzKNR164"
+    ];
+    
+    imageUrls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []);
+
   // Synchronize state with URL path or hash and handle browser back/forward buttons
   useEffect(() => {
     const parseUrl = (): NavigationTab => {
