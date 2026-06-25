@@ -140,26 +140,34 @@ graph TD
 
 > **Only 2 of ~32 local images are actually referenced** (`benny_suit.jpg`, `Benny Icon.png`). The other ~17 MB are orphaned in the bundle directory but, since they are imported nowhere, Vite will **not** ship them to the client — they only bloat the repo. Confirm before deleting (Benny may want them for future use / they may map to the remote Supabase originals).
 
-## 6. Component → responsibility
+## 6. Component → responsibility (post-refactor)
+
+> The original `App.tsx` monolith was decomposed during the optimization pass.
+> `App.tsx` is now a layout shell; routing is real (`react-router-dom`).
 
 | File | Role | Media |
 |---|---|---|
-| `src/App.tsx` (1,581 lines) | Monolith: routing state, all 4 views, hero, persona, practice, awards/pricing placeholders, featured study, offers, contact, **dead lead-capture code** (form handlers, sanitize, localStorage, honeypot — *no form is rendered*) | remote imgs #6–11, local `benny_suit.jpg` |
-| `src/components/Header.tsx` | Sticky nav + theme toggle + admin pill (shows only if `inquiryCount>0`, unreachable) | — |
-| `src/components/BottomBento.tsx` | Footer: social links, newsletter `<form>` (**submits nowhere**, local state only), CloudFront video, watermark | CloudFront mp4 |
-| `src/components/Testimonials.tsx` | Testimonials grid (own `SCREENSHOT_TESTIMONIALS`, not `data.ts`) | gradient initials (no img) |
+| `src/main.tsx` | Mounts `<RouterProvider>` | — |
+| `src/router.tsx` | Routes: `/` `/work` `/offers` `/contact` (+ `/home`→`/`, catch-all→`/`); lazy pages | — |
+| `src/App.tsx` | Layout shell: cursor, theme toggle, header, animated `<Outlet/>`, lazy `ProjectModal`, `ProjectModalContext` provider | — |
+| `src/pages/*.tsx` | `HomePage`/`WorkPage`/`OffersPage`/`ContactPage` — compose sections + `usePageMeta` | — |
+| `src/sections/*.tsx` | `Hero`, `PersonaNarrative`, `PracticeGrid`, `Awards`, `Pricing`, `FeaturedCaseStudy`, `WorkList`, `OffersGrid`, `ContactDetails` | public Supabase imgs/video, local `benny_suit.jpg` |
+| `src/hooks/usePageMeta.ts` | Per-route title/description/canonical/OG | — |
+| `src/context/ProjectModalContext.tsx` | `useOpenProject()` for the shared modal | — |
+| `src/components/CountUp.tsx`, `ScrollRevealParagraph.tsx` | Extracted shared helpers | — |
+| `src/components/Header.tsx` | Sticky nav (router-driven) + theme toggle. Admin pill **removed** | — |
+| `src/components/BottomBento.tsx` | Footer: social links, newsletter `<form>` (**still submits nowhere** — deferred), CloudFront video, watermark | CloudFront mp4 |
+| `src/components/Testimonials.tsx` | Testimonials grid (own `SCREENSHOT_TESTIMONIALS`, not `data.ts`) | gradient initials |
 | `src/components/FAQ.tsx` | FAQ accordion | uses `FAQS[]` ✅ |
-| `src/components/ProjectModal.tsx` | Project detail overlay | `project.image` (remote) |
-| `src/components/AdminPanel.tsx` | "Local CRM" drawer ("SECURED IN LOCALSTORAGE SANDBOX") — **unreachable dead UI** | — |
-| `src/components/SectionHeader.tsx` | Section title block (supports `id`) | — |
-| `src/components/GlowBorderCard.tsx` | Offer card wrapper | — |
-| `src/components/MagicCursor.tsx` | Custom cursor | — |
+| `src/components/ProjectModal.tsx` | Project detail overlay (lazy-loaded) | `project.image` (public) |
+| `src/components/{SectionHeader,GlowBorderCard,MagicCursor}.tsx` | Title block / offer card / cursor | — |
+| `scripts/prerender.mjs` | Post-build per-route HTML snapshots (`npm run build:prerender`) | — |
+| ~~`src/components/AdminPanel.tsx`~~ | **Deleted** (was unreachable dead UI) | — |
 
-## 7. Headline findings feeding later phases
+## 7. Headline findings (status after the pass)
 
-1. **Security (P1):** 11 Supabase signed URLs with JWTs in source/git history (expire ~2027-06). Proper fix needs Benny's Supabase access (public bucket / server-side signing). Treat tokens as compromised → rotate + decide on history scrub.
-2. **Dead/misleading code (P1.3/P4):** No contact `<form>` is rendered; `handleFormSubmit`, `sanitizeInput`, `saveSubmissions`, `localStorage` inquiries, honeypot, `AdminPanel`, and the Header "SECURED" pill are all unreachable. Newsletter form in footer also goes nowhere.
-3. **Unused deps/data:** `@google/genai`, `express`, `dotenv` imported nowhere; `OFFERS[]` & `TESTIMONIALS[]` in `data.ts` unused. `data.ts` is not yet the single source of truth.
-4. **SEO (P2):** `index.html` is bare (generic title, no description/OG/Twitter/canonical/JSON-LD); favicon path has a space and points into `src/`; no `robots.txt`/`sitemap.xml`; no real per-route HTML/meta (custom pushState only, no SPA fallback config).
-5. **Perf (P3):** ~19 MB unoptimized images in repo (only ~2 actually used); no image tooling in this env for WebP/AVIF/`srcset`; `App.tsx` monolith not code-split.
-</invoke>
+1. **Security (P1):** 11 Supabase signed URLs with JWTs (expire ~2027-06) → **converted to token-less `/object/public/` URLs** (Benny to flip the bucket public; rotate at leisure; history not scrubbed).
+2. **Dead/misleading code (P1.3/P4):** lead-capture stack + `AdminPanel` + Header "SECURED" pill → **removed**. (Footer newsletter form still local-only — deferred.)
+3. **Unused deps/data:** `@google/genai` **removed**. `express`/`dotenv` and `OFFERS[]`/`TESTIMONIALS[]` still present — deferred cleanup.
+4. **SEO (P2):** `index.html` meta/OG/JSON-LD **added**; favicon **moved to `/public`** (optimized, no space); `robots.txt`/`sitemap.xml` **added**; real routing + SPA fallback + prerender **added**.
+5. **Perf (P3):** lazy-loading + **code-splitting done**; image WebP/AVIF/`srcset` and video lazy-load still deferred (see CHANGELOG punch-list).

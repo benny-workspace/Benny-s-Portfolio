@@ -6,95 +6,86 @@
 > environment is pinned to develop on `claude/modest-carson-rwk6d7`, so all work
 > landed there. Rename/retarget on merge if desired.
 
-This pass prioritized **high-value, low-risk, fully-verifiable** changes (type
-check + production build pass after every commit) and **flagged** the invasive or
-decision/credential-gated work for Benny rather than doing it blind. See the
-**Deferred punch-list** below.
+Type check (`tsc --noEmit`) and production build pass after every commit, and a
+headless-Chromium smoke test (navigation, project modal, direct route loads,
+catch-all redirect, per-route canonical) passes with no JS errors.
 
 ### Phase 0 — Repo scan & site map
-- Added [`SITE_MAP.md`](./SITE_MAP.md): every view/section/anchor, all outbound
-  links, external data deps (Supabase storage, CloudFront, Unsplash, fonts), and
-  a full asset inventory with consumers. Includes a Mermaid graph.
-- **Findings that corrected the brief** (see SITE_MAP §7):
-  - There is **no rendered contact `<form>`**. The lead-capture stack in `App.tsx`
-    (`handleFormSubmit`, `sanitizeInput`, `saveSubmissions`, `localStorage`,
-    honeypot) + `AdminPanel` + the Header "SECURED" pill are **unreachable dead
-    code**. Contact is via `mailto:`/WhatsApp/Instagram links, which *do* reach
-    Benny — so leads are not being silently dropped by a broken form. (The footer
-    newsletter form *does* go nowhere.)
-  - Local `src/assets/images/` and the remote signed-URL images are **mostly
-    different images**, so remote→local swaps are only safe on exact matches.
-  - `@google/genai`, `express`, `dotenv` are imported nowhere. `OFFERS[]` and
-    `TESTIMONIALS[]` in `data.ts` are unused (offers JSX is hardcoded; testimonials
-    use a local array). Only `PROJECTS`/`PRACTICES`/`FAQS` are consumed.
+- Added [`SITE_MAP.md`](./SITE_MAP.md): views/sections/anchors, outbound links,
+  external data deps, full asset inventory, Mermaid graph.
+- Corrected the brief's premises: **no contact `<form>` was ever rendered** (the
+  lead-capture stack was dead code; contact is via mailto/WhatsApp/IG); local vs.
+  remote images are mostly different; `@google/genai`/`express`/`dotenv` and the
+  `OFFERS[]`/`TESTIMONIALS[]` arrays were unused.
 
-### Phase 1 — Security (partial; the rest needs Benny's access — see punch-list)
-- **1.4 Done:** removed unused `@google/genai` dependency; cleared the
-  `MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API` capability and the `GEMINI_API_KEY`
-  from `.env.example`/README. Documented the rule that provider keys must never be
-  client-bundled.
-- **1.1 Documented + decoded:** the 11 Supabase signed URLs carry JWTs issued
-  ~2026-06 that **expire ~2027-06** (verified by decoding). Treat as compromised.
-  The proper fix (public marketing bucket *or* server-side signing + token
-  rotation) needs Benny's Supabase access — see punch-list.
+### Phase 1 — Security
+- **1.1 Done** — converted all 11 Supabase storage URLs from signed
+  `/object/sign/…?token=<JWT>` to clean `/object/public/…`. This removes the
+  leaked tokens from source **and** fixes the ~2027-06 expiry.
+  ⚠️ **Requires Benny to set the bucket(s) public in Supabase** (his chosen
+  option) — until then those images/video 404. History scrub intentionally
+  skipped (rotating/replacing access makes the old tokens moot).
+- **1.3 Done** — removed the unreachable/misleading lead-capture + admin code:
+  `AdminPanel.tsx`, the `Submission` type, and the Header "SECURED" pill.
+- **1.4 Done** — dropped unused `@google/genai`; cleared the Gemini capability
+  and `GEMINI_API_KEY`; documented that provider keys must stay server-side.
+- **1.2 Deferred (Benny's choice)** — forms not wired to a backend this round.
 
 ### Phase 2 — SEO
-- **2.1 Done:** rewrote `index.html` — branded `<title>`, meta description,
-  `canonical`, full Open Graph + Twitter card set, `theme-color`, and
-  `Person`/`Organization` JSON-LD with `sameAs` for all socials.
-- Favicon moved out of `src/assets/images/"Benny Icon.png"` (had a space) into
-  `/public` as optimized `favicon-32x32.png`, `apple-touch-icon.png`,
-  `benny-icon.png` (540 KB → 34 KB) + a real `og-image.jpg` (1200×630, 52 KB).
-- **2.2 Done:** added `public/robots.txt` + `public/sitemap.xml`.
-- **2.3 Partial:** added SPA fallback (`public/_redirects` for Netlify,
-  `vercel.json` for Vercel) so the existing `history.pushState` routes
-  (`/work`, `/offers`, `/contact`) resolve on direct load/refresh — making the
-  sitemap URLs valid. **Per-route `<title>`/meta + prerendering remain deferred**
-  (needs `react-router` + a prerender step — flagged, not started).
-- **2.4 Partial:** descriptive `id`s on all home/work/offers/contact sections;
-  improved `alt` text; fixed the broken contact "YouTube" CTA (was `youtube.com`
-  root → `/@bennyunmatched`).
+- **2.1 Done** — `index.html`: branded title, meta description, canonical,
+  full Open Graph + Twitter cards, `Person`/`Organization` JSON-LD with `sameAs`.
+  Favicon moved to `/public` (no space in name), optimized
+  (`benny-icon.png` 540 KB → 34 KB) + `favicon-32x32`, `apple-touch-icon`, and a
+  real `og-image.jpg` (1200×630, 52 KB). Domain = `https://ceobenny.com`.
+- **2.2 Done** — `public/robots.txt` + `public/sitemap.xml`.
+- **2.3 Done** — `react-router-dom` v7 with real URLs for `/`, `/work`,
+  `/offers`, `/contact` (+ `/home`→`/` and catch-all→`/`). Per-route
+  `<title>`/description/canonical/OG via `usePageMeta`. SPA fallback
+  (`public/_redirects` + `vercel.json`). **Prerendering** via
+  `scripts/prerender.mjs` + `npm run build:prerender` writes real per-route HTML
+  to `dist/<route>/index.html` for non-JS crawlers (decoupled from the default
+  `build` because it needs a Chromium binary).
+- **2.4 Done** — descriptive `id`s on every section; improved `alt` text; fixed
+  the broken contact "YouTube" CTA (`youtube.com` → `/@bennyunmatched`).
 
 ### Phase 3 — Performance
-- **3.2 Done:** `loading="lazy"` + `decoding="async"` on below-the-fold images
-  (featured case study, work list, contact collage, project modal); hero/persona
-  kept eager to protect LCP.
-- **3.1/3.3/3.4/3.5 Deferred** — see punch-list (heavy image re-encode needs the
-  remote originals; code-splitting rides on the Phase 4 decomposition).
+- **3.2 Done** — `loading="lazy"` + `decoding="async"` on below-the-fold media.
+- **3.3 Done** — code-splitting: route-level lazy pages + `React.lazy` for
+  `Testimonials`, `FAQ`, `BottomBento`, `ProjectModal`. Initial JS chunk
+  484 KB → 430 KB (139 KB gzip) with separate route/lazy chunks.
+- **3.1 / 3.4 / 3.5 / video-lazy — Deferred** (see punch-list).
 
-### Verification
-- `npm run lint` (tsc --noEmit) ✅ and `npm run build` ✅ after every commit.
-- Current prod bundle: `index-*.js` ≈ 484 KB (144 KB gzip), CSS ≈ 68 KB (12 KB
-  gzip), `index.html` ≈ 4.5 KB. No code-splitting yet (single chunk).
+### Phase 4 — Architecture
+- **4.1 Done** — the 1,581-line `App.tsx` monolith is now a thin layout shell;
+  every section lives in `src/sections/*` and each view in `src/pages/*`. Shared
+  helpers extracted (`CountUp`, `ScrollRevealParagraph`).
+- **4.2 Deferred** — make `data.ts` the single source of truth (offers JSX still
+  hardcoded; `OFFERS[]`/`TESTIMONIALS[]` still unused).
+- **4.3** — `npm run lint` (`tsc --noEmit`) passes clean.
 
 ---
 
 ## Deferred punch-list (prioritized; effort × impact)
 
-Legend — Effort: S(<2h) · M(half-day) · L(1–2d) · XL(>2d). Impact: ★–★★★.
+Legend — Effort: S(<2h) · M(half-day) · L(1–2d). Impact: ★–★★★.
 
-| # | Item | Why deferred | Effort | Impact |
+| # | Item | Notes | Effort | Impact |
 |---|---|---|---|---|
-| 1 | **Rotate the leaked Supabase tokens + decide history scrub** (Phase 1.1) | Needs Benny's Supabase access; `git filter-repo`/BFG rewrite is destructive on a shared public repo → explicit go-ahead required | S (rotate) / M (scrub) | ★★★ |
-| 2 | **Move marketing assets to a public (token-less) bucket _or_ sign server-side** (Phase 1.1) | Needs Supabase access; also fixes the ~2027-06 expiry that will silently 404 every project/hero image | M | ★★★ |
-| 3 | **Wire the footer newsletter + a real contact form to a backend** (Phase 1.2) | Needs Benny to pick a destination (Resend/SendGrid/Formspree/Supabase table + serverless) and provide creds. Note: there is currently *no* contact form, only mailto/WhatsApp — decide whether to (re)add one | M | ★★☆ |
-| 4 | **Remove the dead lead-capture + AdminPanel code** (Phase 1.3 / 4) | It's unreachable and the "SECURED IN LOCALSTORAGE SANDBOX" copy is misleading. Removal is a product decision (vs. building a real authed admin once #3 exists) | S | ★★☆ |
-| 5 | **Real routing + prerendering** (Phase 2.3) | `react-router` for `/`,`/work`,`/offers`,`/contact` with per-route `<title>`/meta, then prerender (`vite-plugin-ssr`/`react-snap`) so crawlers get real HTML, not an empty `#root`. Invasive — brief asks for a go-ahead first | L | ★★★ |
-| 6 | **Decompose `App.tsx` (1,581 lines) into per-section components** (Phase 4.1) | Large refactor; should land with #7 to enable code-splitting. Risky to do blind without visual QA | L | ★★☆ |
-| 7 | **Code-split with `React.lazy`/`Suspense`** (Phase 3.3) | Depends on #6; lazy-load `Testimonials`/`FAQ`/`BottomBento`/`ProjectModal` to shrink the 484 KB initial chunk | M | ★★☆ |
-| 8 | **Re-encode images to WebP/AVIF + responsive `srcset`/`sizes`** (Phase 3.1) | The *displayed* images are remote signed URLs (can't fetch/process without the originals); local set is mostly orphaned. Best done after #2 | M–L | ★★☆ |
-| 9 | **Lazy-load the two autoplay background videos** (hero + footer) | They `preload="auto"` and download immediately on every visit (heavy). Needs an IntersectionObserver/poster approach, not a one-liner | M | ★★☆ |
-| 10 | **Make `data.ts` the single source of truth** (Phase 4.2) | Move the hardcoded Offers JSX to `OFFERS[]`, reconcile `TESTIMONIALS[]`, delete unused arrays | M | ★☆☆ |
-| 11 | **Bundle visualizer + icon tree-shaking audit** (Phase 3.4) | Add `rollup-plugin-visualizer`; confirm `lucide-react`/`motion` are tree-shaken | S | ★☆☆ |
-| 12 | **Delete ~17 MB orphaned images / remove unused `express`+`dotenv`** | Repo hygiene; confirm none are needed first (some may be the Supabase originals) | S | ★☆☆ |
-| 13 | **Before/after Lighthouse (mobile+desktop)** (Phase 3.5) | Needs a headless Chrome run against a deployed/preview URL; capture once #5–#9 land | S | ★★☆ |
+| 1 | **Set the Supabase bucket(s) public** | Benny's Supabase action; the code already points at `/object/public/` URLs. Until done, project/hero media 404 | S | ★★★ |
+| 2 | **Buy/connect `ceobenny.com` + deploy with `build:prerender`** | Domain not yet purchased. Point the host build command at `npm run build:prerender` so crawlers get per-route HTML | S | ★★★ |
+| 3 | **Wire newsletter + (optional) contact form to a backend** (P1.2) | Pick Resend/SendGrid/Formspree/Supabase-table + serverless; keep keys server-side. Not selected this round | M | ★★☆ |
+| 4 | **Re-encode images to WebP/AVIF + responsive `srcset`** (P3.1) | Best after the bucket is public (fetch/process the real originals) | M–L | ★★☆ |
+| 5 | **Lazy-load the two autoplay background videos** (hero + footer) | They `preload="auto"` and download on every visit; needs IntersectionObserver/poster | M | ★★☆ |
+| 6 | **`data.ts` as single source of truth** (P4.2) | Move hardcoded Offers JSX into `OFFERS[]`; reconcile/remove unused arrays | M | ★☆☆ |
+| 7 | **Bundle visualizer + icon tree-shaking audit** (P3.4) | Add `rollup-plugin-visualizer`; confirm `lucide-react`/`motion` tree-shake | S | ★☆☆ |
+| 8 | **Delete ~17 MB orphaned images; remove unused `express`/`dotenv`** | Confirm none are needed (some may be the Supabase originals) | S | ★☆☆ |
+| 9 | **Before/after Lighthouse (mobile+desktop)** (P3.5) | Needs a deployed/preview URL with the public bucket live | S | ★★☆ |
+| 10 | **Slim the prerendered `/contact` HTML (≈359 KB)** | `ScrollRevealParagraph` splits every character into a span; consider prerendering a plain-text fallback for that block | S | ★☆☆ |
 
-### Decisions needed from Benny (blockers for the above)
-1. **Production domain** — used as a placeholder `https://ceobennyco.com` in
-   canonical/OG/sitemap/robots. Confirm or replace.
-2. **Supabase** — make the marketing bucket public, or stand up server-side
-   signing? And rotate the exposed tokens.
-3. **Git history scrub** for the leaked tokens — yes/no (destructive rewrite).
-4. **Lead capture** — which backend, and do you want a real contact form?
-5. **Go-ahead on the big refactors** — routing/prerender (#5) and the `App.tsx`
-   decomposition + code-split (#6–#7)?
+### Open decisions / actions for Benny
+1. **Set the Supabase bucket public** so the new `/object/public/` URLs resolve.
+2. **Buy `ceobenny.com`** (placeholder in canonical/OG/sitemap) and set the
+   deploy build to `npm run build:prerender`.
+3. **Rotate** the previously-committed Supabase tokens at your convenience
+   (history was intentionally not rewritten).
+4. **Lead capture** — if you want the forms to actually send, pick a provider.
