@@ -98,4 +98,3 @@ Legend — Effort: S(<2h) · M(half-day) · L(1–2d) · XL(>2d). Impact: ★–
 4. **Lead capture** — which backend, and do you want a real contact form?
 5. **Go-ahead on the big refactors** — routing/prerender (#5) and the `App.tsx`
    decomposition + code-split (#6–#7)?
-</content>

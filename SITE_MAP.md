@@ -162,5 +162,4 @@ graph TD
 3. **Unused deps/data:** `@google/genai`, `express`, `dotenv` imported nowhere; `OFFERS[]` & `TESTIMONIALS[]` in `data.ts` unused. `data.ts` is not yet the single source of truth.
 4. **SEO (P2):** `index.html` is bare (generic title, no description/OG/Twitter/canonical/JSON-LD); favicon path has a space and points into `src/`; no `robots.txt`/`sitemap.xml`; no real per-route HTML/meta (custom pushState only, no SPA fallback config).
 5. **Perf (P3):** ~19 MB unoptimized images in repo (only ~2 actually used); no image tooling in this env for WebP/AVIF/`srcset`; `App.tsx` monolith not code-split.
-</content>
 </invoke>

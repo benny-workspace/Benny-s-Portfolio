@@ -29,4 +29,3 @@ Copy `.env.example` → `.env.local` and set `APP_URL` to the production domain
 See [`SITE_MAP.md`](./SITE_MAP.md) for the full view/section/asset inventory and
 [`CHANGELOG.md`](./CHANGELOG.md) for the optimization history and the deferred
 punch-list.
-</content>
