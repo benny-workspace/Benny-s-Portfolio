@@ -51,8 +51,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           <div className="w-full h-[250px] sm:h-[400px] relative overflow-hidden">
             <img
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} — ${project.category}`}
               referrerPolicy="no-referrer"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover filter brightness-95"
             />
             {/* GRADIENT OVERLAY */}

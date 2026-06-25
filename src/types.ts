@@ -62,16 +62,3 @@ export interface ServiceOffer {
   recommended: boolean;
   timeline: string;
 }
-
-export interface Submission {
-  id: string;
-  name: string;
-  email: string;
-  projectType: string;
-  budget: string;
-  details: string;
-  timeline: string;
-  timestamp: string;
-  ipPlaceholder: string;
-  sanitized: boolean;
-}

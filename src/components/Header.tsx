@@ -5,18 +5,12 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Menu, X, ShieldCheck } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { NavigationTab } from "../types";
 
-interface HeaderProps {
-  activeTab: NavigationTab;
-  setActiveTab: (tab: NavigationTab) => void;
-  openAdmin: () => void;
-  inquiryCount: number;
-}
-
 interface RollingNavLinkProps {
-  key?: any;
+  key?: string | number;
   label: string;
   isActive: boolean;
   onClick: () => void;
@@ -41,7 +35,7 @@ function RollingNavLink({ label, isActive, onClick, id }: RollingNavLinkProps) {
               style={{ transitionDelay: delay }}
               className="rolling-char"
             >
-              {char === " " ? "\u00A0" : char}
+              {char === " " ? " " : char}
             </span>
           );
         })}
@@ -51,22 +45,27 @@ function RollingNavLink({ label, isActive, onClick, id }: RollingNavLinkProps) {
   );
 }
 
-export default function Header({ activeTab, setActiveTab, openAdmin, inquiryCount }: HeaderProps) {
-  const [isOpen, setIsOpen] = useState(false);
+const navItems: { label: string; value: NavigationTab; path: string }[] = [
+  { label: "Home", value: "home", path: "/" },
+  { label: "Work", value: "work", path: "/work" },
+  { label: "Offers", value: "offers", path: "/offers" },
+  { label: "Contact", value: "contact", path: "/contact" },
+];
 
-  const navItems: { label: string; value: NavigationTab }[] = [
-    { label: "Home", value: "home" },
-    { label: "Work", value: "work" },
-    { label: "Offers", value: "offers" },
-    { label: "Contact", value: "contact" },
-  ];
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const isActive = (path: string) =>
+    path === "/" ? pathname === "/" || pathname === "/home" : pathname === path;
 
   return (
     <header className="sticky top-0 z-50 bg-bg-custom/80 backdrop-blur-md border-b border-border-custom px-4 py-4 sm:px-8 text-text-primary transition-colors duration-200">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* LOGO */}
         <button
-          onClick={() => setActiveTab("home")}
+          onClick={() => navigate("/")}
           className="group flex items-center gap-2 cursor-pointer focus:outline-none"
           id="header-brand-logo"
         >
@@ -83,40 +82,16 @@ export default function Header({ activeTab, setActiveTab, openAdmin, inquiryCoun
               <RollingNavLink
                 key={item.value}
                 label={item.label}
-                isActive={activeTab === item.value}
-                onClick={() => setActiveTab(item.value)}
+                isActive={isActive(item.path)}
+                onClick={() => navigate(item.path)}
                 id={`nav-${item.value}`}
               />
             ))}
           </nav>
-
-          {/* SECURE MONITOR */}
-          {inquiryCount > 0 && (
-            <div className="flex items-center gap-4 border-l border-border-custom pl-6">
-              <button
-                onClick={openAdmin}
-                className="flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-mono font-semibold hover:bg-emerald-500/20 transition-all cursor-pointer shadow-xs focus:ring-2 focus:ring-emerald-400"
-                id="admin-pill-btn"
-                title="Open Local Secure Dashboard"
-              >
-                <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-                <span>{inquiryCount} SECURED</span>
-              </button>
-            </div>
-          )}
         </div>
 
         {/* MOBILE MENU TRIGGER */}
         <div className="flex items-center gap-2 md:hidden">
-          {inquiryCount > 0 && (
-            <button
-              onClick={openAdmin}
-              className="p-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-[10px] font-mono font-semibold"
-              title="Open Inquiries"
-            >
-              <ShieldCheck className="w-4 h-4" />
-            </button>
-          )}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-1.5 rounded-md text-text-secondary hover:text-text-primary hover:bg-surface-custom cursor-pointer focus:outline-none"
@@ -143,11 +118,11 @@ export default function Header({ activeTab, setActiveTab, openAdmin, inquiryCoun
                 <button
                   key={item.value}
                   onClick={() => {
-                    setActiveTab(item.value);
+                    navigate(item.path);
                     setIsOpen(false);
                   }}
                   className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                    activeTab === item.value
+                    isActive(item.path)
                       ? "bg-text-primary text-bg-custom"
                       : "text-text-secondary hover:bg-surface-custom"
                   }`}
@@ -156,20 +131,6 @@ export default function Header({ activeTab, setActiveTab, openAdmin, inquiryCoun
                   {item.label}
                 </button>
               ))}
-              {inquiryCount > 0 && (
-                <div className="pt-2 px-4 border-t border-border-custom">
-                  <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      openAdmin();
-                    }}
-                    className="flex items-center gap-1.5 text-xs text-emerald-400 font-mono font-semibold"
-                  >
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>View {inquiryCount} Inquiries</span>
-                  </button>
-                </div>
-              )}
             </div>
           </motion.div>
         )}
