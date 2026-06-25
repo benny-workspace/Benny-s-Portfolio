@@ -63,6 +63,7 @@ export default function Hero() {
           muted
           preload="auto"
           playsInline
+          fetchPriority="high"
           className="w-full h-full object-cover object-[center_35%] md:object-[right_center] hero-video-mask"
         />
       </div>
